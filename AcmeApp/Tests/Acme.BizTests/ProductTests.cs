@@ -19,7 +19,8 @@ namespace Acme.Biz.Tests
             currentProduct.ProductName = "Honda";
             currentProduct.ProductId = 2346;
             currentProduct.Description = "Nice car from Japan";
-            var expected = "Hello Honda (2346): Nice car from Japan";
+            currentProduct.ProductVendor.CompanyName = "Honda Ltd.";
+            var expected = "Hello Honda (2346): Nice car from Japan" + " Available on: ";
 
             //Act
             var actual = currentProduct.SayHello();
@@ -33,7 +34,27 @@ namespace Acme.Biz.Tests
         {
             //Arrange
             var currentProduct = new Product("Honda", 2346, "Nice car from Japan");
-            var expected = "Hello Honda (2346): Nice car from Japan";
+            var expected = "Hello Honda (2346): Nice car from Japan" + " Available on: ";
+
+            //Act
+            var actual = currentProduct.SayHello();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void SayHello_ObjectInitializer_Test()
+        {
+            //Arrange
+            var currentProduct = new Product
+            {
+                ProductName = "Honda",
+                ProductId = 2346,
+                Description = "Nice car from Japan",
+            };
+
+            var expected = "Hello Honda (2346): Nice car from Japan" + " Available on: ";
 
             //Act
             var actual = currentProduct.SayHello();
